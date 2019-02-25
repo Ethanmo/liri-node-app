@@ -59,7 +59,6 @@ function findMovie(searchName){
     } else {
         movieQuery= searchName.join('+');
     }
-    console.log(movieQuery);
     axios.get("http://www.omdbapi.com/?t=" + movieQuery + "&apikey=ad2d6353")
     .then(function(response){
         var data = response.data;
