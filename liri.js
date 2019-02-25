@@ -14,21 +14,13 @@ var command = process.argv[2];
 
 //save input search and trim 
 var trimmedSearch;
-function myTrim(){
+(function(){
     var inputArr = process.argv.slice(3);
     for (let i = 0; i < inputArr.length; i++){
         inputArr[i] = inputArr[i].replace(/\W/gm, '');
     }
     trimmedSearch = inputArr;
-}
-
-myTrim();
-
-//var trimmedSearch = rawSearch.join('');
-
-//console.log("search: " + trimmedSearch);
-//console.log("command: " + command)
-
+})();
 
 function findConcert(searchName){
     var searchQuery = searchName.join('');
@@ -59,7 +51,6 @@ function findSong(searchName){
         console.log(err);
     });
 }
-//findSong();
 
 function findMovie(searchName){
     var movieQuery;
