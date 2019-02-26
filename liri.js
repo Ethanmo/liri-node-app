@@ -42,10 +42,20 @@ function findConcert(searchName){
 }
 
 function findSong(searchName){
-    var searchQuery = searchName.join('');
+    var searchQuery = searchName.join('+');
     spotify.search({ type: 'track', query: searchQuery})
     .then(function(response){
-        console.log(response.tracks.items[1]);
+        var tracksArr = response.tracks.items;
+        for (let i = 0; i < tracksArr.length; i++){
+            var displayData = "\nArtists: " + response.tracks.items[i].album.artists[0].name +
+                              "\nSong: " + response.tracks.items[i].name +
+                              "\nPreview Link: " + response.tracks.items[i].album.artists[0].external_urls.spotify +
+                              "\nAlbum: " + response.tracks.items[i].album.name + "\n"
+            console.log(displayData);
+            fs.appendFile('./log.txt', displayData, function(error){
+                if(error){console.log(error);}
+            })
+        }
     })
     .catch(function(err) {
         console.log(err);
@@ -63,8 +73,8 @@ function findMovie(searchName){
     .then(function(response){
         var data = response.data;
         var displayData = "\n-Title: " + data.Title + "\n-Year: " + data.Year + "\n-IMDB Rating: " + data.imdbRating + 
-                    "\n-Rotten Tomatoes Rating: " + data.Ratings[1].Value + "\n-Country: " + data.Country + "\n-Language: " + data.Language +
-                    "\n-Plot: " + data.Plot + "\n-Actors: " + data.Actors + "\n\n";
+                    "\n-Rotten Tomatoes Rating: " + data.Ratings[1].Value + "\n-Country: " + data.Country + 
+                    "\n-Language: " + data.Language + "\n-Plot: " + data.Plot + "\n-Actors: " + data.Actors + "\n\n";
         console.log(displayData);
         fs.appendFile('./log.txt', displayData, function(error){
             if (error){return console.log(error);}
