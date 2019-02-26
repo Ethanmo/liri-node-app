@@ -45,7 +45,7 @@ function findSong(searchName){
     var searchQuery = searchName.join('');
     spotify.search({ type: 'track', query: searchQuery})
     .then(function(response){
-        console.log(response);
+        console.log(response.tracks.items[1]);
     })
     .catch(function(err) {
         console.log(err);
